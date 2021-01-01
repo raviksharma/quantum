@@ -11,4 +11,4 @@ one = np.array([[0],
 # general state
 # |ψ> = α |0> + β |1>,
 # where α, β ∈ Complex,
-# and |α|**2 + |β|**2 = 1
+# and |α|**2 + |β|**2 = 1, normalization constraint
