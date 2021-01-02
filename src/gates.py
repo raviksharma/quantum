@@ -71,3 +71,35 @@ def SWAP(joint_state):
                             [0, 1, 0, 0],
                             [0, 0, 0, 1]], dtype=np.complex)
     return swap_vector @ joint_state
+
+# Toffoli / CCNOT gate
+def CCNOT(joint_state):
+    """Applies CCNOT gate.
+
+    joint_state -- joint state of 3 qubits
+    """
+    ccnot_vector = np.array([[1, 0, 0, 0, 0, 0, 0, 0],
+                             [0, 1, 0, 0, 0, 0, 0, 0],
+                             [0, 0, 1, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 1, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 1, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 1, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 0, 1],
+                             [0, 0, 0, 0, 0, 0, 1, 0]], dtype=np.complex)
+    return ccnot_vector @ joint_state
+
+# Fredkin / CSWAP gate
+def CSWAP(joint_state):
+    """Applies CSWAP gate.
+
+    joint_state -- joint state of 3 qubits
+    """
+    cswap_vector = np.array([[1, 0, 0, 0, 0, 0, 0, 0],
+                             [0, 1, 0, 0, 0, 0, 0, 0],
+                             [0, 0, 1, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 1, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 1, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 1, 0],
+                             [0, 0, 0, 0, 0, 1, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 0, 1]], dtype=np.complex)
+    return cswap_vector @ joint_state
