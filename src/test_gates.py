@@ -1,8 +1,10 @@
 import math
 import numpy as np
 
-from base import zero, one
-from gates import X, H, CNOT
+from base import zero, one, \
+                 zz, zo, oz, oo, \
+                 zzz, zzo, zoz, zoo, ozz, ozo, ooz, ooo
+from gates import X, H, CNOT, SWAP, CCNOT, CSWAP
 
 
 def test_X():
@@ -36,31 +38,36 @@ def test_H():
 
 
 def test_CNOT():
-    # |00>
-    zz = np.array([[1],
-                   [0],
-                   [0],
-                   [0]], dtype=np.complex)
-
-    # |01>
-    zo = np.array([[0],
-                   [1],
-                   [0],
-                   [0]], dtype=np.complex)
-
-    # |10>
-    oz = np.array([[0],
-                   [0],
-                   [1],
-                   [0]], dtype=np.complex)
-
-    # |11>
-    oo = np.array([[0],
-                   [0],
-                   [0],
-                   [1]], dtype=np.complex)
-
     assert(np.allclose(CNOT(zz), zz))
     assert(np.allclose(CNOT(zo), zo))
     assert(np.allclose(CNOT(oz), oo))
     assert(np.allclose(CNOT(oo), oz))
+
+
+def test_SWAP():
+    assert(np.allclose(SWAP(zz), zz))
+    assert(np.allclose(SWAP(zo), oz))
+    assert(np.allclose(SWAP(oz), zo))
+    assert(np.allclose(SWAP(oo), oo))
+
+
+def test_CCNOT():
+    assert(np.allclose(CCNOT(zzz), zzz))
+    assert(np.allclose(CCNOT(zzo), zzo))
+    assert(np.allclose(CCNOT(zoz), zoz))
+    assert(np.allclose(CCNOT(zoo), zoo))
+    assert(np.allclose(CCNOT(ozz), ozz))
+    assert(np.allclose(CCNOT(ozo), ozo))
+    assert(np.allclose(CCNOT(ooz), ooo))
+    assert(np.allclose(CCNOT(ooo), ooz))
+
+
+def test_CSWAP():
+    assert(np.allclose(CSWAP(zzz), zzz))
+    assert(np.allclose(CSWAP(zzo), zzo))
+    assert(np.allclose(CSWAP(zoz), zoz))
+    assert(np.allclose(CSWAP(zoo), zoo))
+    assert(np.allclose(CSWAP(ozz), ozz))
+    assert(np.allclose(CSWAP(ozo), ooz))
+    assert(np.allclose(CSWAP(ooz), ozo))
+    assert(np.allclose(CSWAP(ooo), ooo))
