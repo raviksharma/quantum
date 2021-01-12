@@ -4,7 +4,7 @@ import numpy as np
 from base import zero, one, \
                  zz, zo, oz, oo, \
                  zzz, zzo, zoz, zoo, ozz, ozo, ooz, ooo
-from gates import X, H, CNOT, SWAP, CCNOT, CSWAP
+from gates import X, Z, H, CNOT, SWAP, CCNOT, CSWAP
 
 
 def test_X():
@@ -36,6 +36,19 @@ def test_H():
     assert(np.allclose(H(H(zero)), zero))
     assert(np.allclose(H(H(one)), one))
 
+
+def test_Z():
+    assert(np.allclose(H(Z(H(zero))), X(zero)))
+    assert(np.allclose(H(Z(H(one))), X(one)))
+    s = np.array([[.6],
+                  [.8]], dtype='complex')
+    assert(np.allclose(H(Z(H(s))), X(s)))
+
+    assert(np.allclose(H(X(H(zero))), Z(zero)))
+    assert(np.allclose(H(X(H(one))), Z(one)))
+    s = np.array([[.6],
+                  [.8]], dtype='complex')
+    assert(np.allclose(H(X(H(s))), Z(s)))
 
 def test_CNOT():
     assert(np.allclose(CNOT(zz), zz))
