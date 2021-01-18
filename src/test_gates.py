@@ -1,4 +1,4 @@
-import math
+from math import e, pi, sqrt
 import numpy as np
 
 from base import zero, one, \
@@ -21,8 +21,8 @@ def test_X():
 
 
 def test_H():
-    h0 = (zero+one)/math.sqrt(2)
-    h1 = (zero-one)/math.sqrt(2)
+    h0 = (zero+one)/sqrt(2)
+    h1 = (zero-one)/sqrt(2)
     assert(np.allclose(H(zero), h0))
     assert(np.allclose(H(one), h1))
 
@@ -31,7 +31,7 @@ def test_H():
     s = np.array([[alpha],
                   [beta]], dtype='complex')
     assert(np.allclose(H(s), alpha*h0 + beta*h1))
-    assert(np.allclose(H(s), (((alpha+beta)*zero)/math.sqrt(2)) + (((alpha-beta)*one)/math.sqrt(2))))
+    assert(np.allclose(H(s), (((alpha+beta)*zero)/sqrt(2)) + (((alpha-beta)*one)/sqrt(2))))
 
     assert(np.allclose(H(H(zero)), zero))
     assert(np.allclose(H(H(one)), one))

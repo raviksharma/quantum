@@ -1,4 +1,4 @@
-import math
+from math import e, pi, sqrt
 import numpy as np
 
 
@@ -11,8 +11,8 @@ def X(state):
 
 #  Hadamard gate / Half turn
 def H(state):
-    h_vector = (1/math.sqrt(2)) * np.array([[1, 1],
-                                            [1, -1]], dtype=np.complex)
+    h_vector = (1/sqrt(2)) * np.array([[1, 1],
+                                       [1, -1]], dtype=np.complex)
     return h_vector @ state
 
 
@@ -40,7 +40,7 @@ def RZ(phi, state):
     state -- state of a single qubit
     """
     rz_vector = np.array([[1, 0],
-                          [0, math.e ** (phi * 1j)]], dtype=np.complex)
+                          [0, e ** (phi * 1j)]], dtype=np.complex)
     return rz_vector @ state
 
 #  S gate / sqrt(Z) / Quarter turn
@@ -49,7 +49,7 @@ def S(state):
 
     state -- state of a single qubit
     """
-    return RZ(math.pi/2, state)
+    return RZ(pi/2, state)
 
 #  T gate / sqrt(S) / Eighth turn
 def T(state):
@@ -57,7 +57,7 @@ def T(state):
 
     state -- state of a single qubit
     """
-    return RZ(math.pi/4, state)
+    return RZ(pi/4, state)
 
 
 # Controlled NOT / CNOT gate
@@ -81,7 +81,7 @@ def CPHASE(phi, joint_state):
     cr_vector = np.array([[1, 0, 0, 0],
                           [0, 1, 0, 0],
                           [0, 0, 1, 0],
-                          [0, 0, 0, math.e ** (phi * 1j)]], dtype=np.complex)
+                          [0, 0, 0, e ** (phi * 1j)]], dtype=np.complex)
     return cr_vector @ joint_state
 
 
