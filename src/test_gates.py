@@ -4,7 +4,7 @@ import numpy as np
 from base import zero, one, \
                  zz, zo, oz, oo, \
                  zzz, zzo, zoz, zoo, ozz, ozo, ooz, ooo
-from gates import X, Z, RZ, S, T, H, CNOT, SWAP, CCNOT, CSWAP
+from gates import X, Y, Z, RZ, S, T, H, CNOT, SWAP, CCNOT, CSWAP, U3, U2, U1
 
 
 alpha = 0.6
@@ -91,3 +91,24 @@ def test_CSWAP():
     assert(np.allclose(CSWAP(ozo), ooz))
     assert(np.allclose(CSWAP(ooz), ozo))
     assert(np.allclose(CSWAP(ooo), ooo))
+
+def test_U1():
+    assert(np.allclose(U1(pi, zero), RZ(pi, zero)))
+    assert(np.allclose(U1(2*pi, zero), RZ(2*pi, zero)))
+    assert(np.allclose(U1((3*pi)/2, zero), RZ((3*pi)/2, zero)))
+    assert(np.allclose(U1(pi/2, one), RZ(pi/2, one)))
+    assert(np.allclose(U1(pi/4, s), RZ(pi/4, s)))
+
+def test_U2():
+    assert(np.allclose(U2(0, pi, zero), H(zero)))
+    assert(np.allclose(U2(0, pi, one), H(one)))
+    assert(np.allclose(U2(0, pi, s), H(s)))
+
+def test_U3():
+    assert(np.allclose(U3(pi, 0, pi, zero), X(zero)))
+    assert(np.allclose(U3(pi, 0, pi, one), X(one)))
+    assert(np.allclose(U3(pi, 0, pi, s), X(s)))
+
+    assert(np.allclose(U3(pi, pi/2, pi/2, zero), Y(zero)))
+    assert(np.allclose(U3(pi, pi/2, pi/2, one), Y(one)))
+    assert(np.allclose(U3(pi, pi/2, pi/2, s), Y(s)))

@@ -1,4 +1,4 @@
-from math import e, pi, sqrt
+from math import e, pi, sqrt, cos, sin
 import numpy as np
 
 
@@ -10,21 +10,33 @@ y_vector = np.array([[0, -1j],
 
 #  Pauli-X / NOT gate / Half turn
 def X(state):
+    """Applies the NOT gate.
+
+    state -- state of a single qubit
+    """
     return not_vector @ state
 
 #  Hadamard gate / Half turn
 def H(state):
+    """Applies the Hadamard gate.
+
+    state -- state of a single qubit
+    """
     h_vector = (1/sqrt(2)) * np.array([[1, 1],
                                        [1, -1]], dtype=np.complex)
     return h_vector @ state
 
 #  Pauli-Y / Y gate / Half turn
 def Y(state):
+    """Applies the Y gate.
+
+    state -- state of a single qubit
+    """
     return y_vector @ state
 
 #  Pauli-Z / Z gate / Half turn
 def Z(state):
-    """Applies Z gate.
+    """Applies the Z gate.
 
     state -- state of a single qubit
     """
@@ -34,7 +46,7 @@ def Z(state):
 
 #  Phase shift / RZ gate
 def RZ(phi, state):
-    """Applies RZ gate.
+    """Applies the RZ gate.
 
     state -- state of a single qubit
     """
@@ -44,7 +56,7 @@ def RZ(phi, state):
 
 #  S gate / sqrt(Z) / Quarter turn
 def S(state):
-    """Applies S gate.
+    """Applies the S gate.
 
     state -- state of a single qubit
     """
@@ -52,7 +64,7 @@ def S(state):
 
 #  T gate / sqrt(S) / Eighth turn
 def T(state):
-    """Applies T gate.
+    """Applies the T gate.
 
     state -- state of a single qubit
     """
@@ -61,7 +73,7 @@ def T(state):
 
 # Controlled NOT / CNOT / CX gate
 def CNOT(joint_state):
-    """Applies CNOT gate.
+    """Applies the CNOT gate.
 
     joint_state -- joint state of 2 qubits
     """
@@ -73,7 +85,7 @@ def CNOT(joint_state):
 
 #  Controlled Phase shift / CPHASE gate
 def CPHASE(phi, joint_state):
-    """Applies CPHASE gate.
+    """Applies the CPHASE gate.
 
     joint_state -- joint state of 2 qubits
     """
@@ -86,7 +98,7 @@ def CPHASE(phi, joint_state):
 
 # Controlled Z / CZ gate
 def CZ(joint_state):
-    """Applies CZ gate.
+    """Applies the CZ gate.
 
     joint_state -- joint state of 2 qubits
     """
@@ -98,8 +110,9 @@ def CZ(joint_state):
 
 # Controlled U / CU gate
 def CU(U, joint_state):
-    """Applies CU gate.
+    """Applies the CU gate.
 
+    U           -- Pauli matrices
     joint_state -- joint state of 2 qubits
     """
     cu_vector = np.identity(4, dtype=np.complex)
@@ -108,7 +121,7 @@ def CU(U, joint_state):
 
 # Controlled X / CX gate / same as CNOT
 def CX(joint_state):
-    """Applies CX gate.
+    """Applies the CX gate.
 
     joint_state -- joint state of 2 qubits
     """
@@ -116,7 +129,7 @@ def CX(joint_state):
 
 # Controlled Y / CY gate
 def CY(joint_state):
-    """Applies CY gate.
+    """Applies the CY gate.
 
     joint_state -- joint state of 2 qubits
     """
@@ -124,7 +137,7 @@ def CY(joint_state):
 
 # SWAP gate
 def SWAP(joint_state):
-    """Applies SWAP gate.
+    """Applies the SWAP gate.
 
     joint_state -- joint state of 2 qubits
     """
@@ -136,7 +149,7 @@ def SWAP(joint_state):
 
 # Toffoli / CCNOT gate
 def CCNOT(joint_state):
-    """Applies CCNOT gate.
+    """Applies the CCNOT gate.
 
     joint_state -- joint state of 3 qubits
     """
@@ -152,7 +165,7 @@ def CCNOT(joint_state):
 
 # Fredkin / CSWAP gate
 def CSWAP(joint_state):
-    """Applies CSWAP gate.
+    """Applies the CSWAP gate.
 
     joint_state -- joint state of 3 qubits
     """
@@ -165,3 +178,19 @@ def CSWAP(joint_state):
                              [0, 0, 0, 0, 0, 1, 0, 0],
                              [0, 0, 0, 0, 0, 0, 0, 1]], dtype=np.complex)
     return cswap_vector @ joint_state
+
+# Universal quantum gates for single qubit
+def U3(_theta, _phi, _lambda, state):
+    """Applies the U3 gate.
+
+    state   -- state of a single qubit
+    """
+    u3_vector = np.array([[cos(_theta/2), -((e ** (_lambda * 1j) * (sin(_theta/2))))],
+                         [((e ** (_phi * 1j) * (sin(_theta/2)))), ((e ** ((_lambda * 1j) + (_phi * 1j)) * (cos(_theta/2))))]], dtype=np.complex)
+    return u3_vector @ state
+
+def U2(_phi, _lambda, state):
+    return U3(pi/2, _phi, _lambda, state)
+
+def U1(_lambda, state):
+    return U3(0, 0, _lambda, state)
