@@ -8,6 +8,9 @@ not_vector = np.array([[0, 1],
 y_vector = np.array([[0, -1j],
                      [1j, 0]], dtype=np.complex)
 
+h_vector = (1/sqrt(2)) * np.array([[1, 1],
+                                   [1, -1]], dtype=np.complex)
+
 #  Pauli-X / NOT gate / Half turn
 def X(state):
     """Applies the NOT gate.
@@ -22,9 +25,15 @@ def H(state):
 
     state -- state of a single qubit
     """
-    h_vector = (1/sqrt(2)) * np.array([[1, 1],
-                                       [1, -1]], dtype=np.complex)
     return h_vector @ state
+
+#  Hadamard transform - Hadamard gate (H) applied in parallel on 2 qubits
+def H2(joint_state):
+    """Applies the Hadamard transform.
+
+    joint_state -- joint state of 2 qubits
+    """
+    return np.kron(h_vector, h_vector) @ joint_state
 
 #  Pauli-Y / Y gate / Half turn
 def Y(state):

@@ -4,7 +4,8 @@ import numpy as np
 from base import zero, one, \
                  zz, zo, oz, oo, \
                  zzz, zzo, zoz, zoo, ozz, ozo, ooz, ooo
-from gates import X, Y, Z, RZ, S, T, H, CNOT, SWAP, CCNOT, CSWAP, U3, U2, U1
+from gates import X, Y, Z, RZ, S, T, H, H2, \
+                  CNOT, SWAP, CCNOT, CSWAP, U3, U2, U1
 
 
 alpha = 0.6
@@ -25,7 +26,9 @@ def test_X():
 def test_H():
     h0 = (zero+one)/sqrt(2)
     h1 = (zero-one)/sqrt(2)
+    # H(zero), also known as |+>
     assert(np.allclose(H(zero), h0))
+    # H(one), also known as |->
     assert(np.allclose(H(one), h1))
 
     assert(np.allclose(H(s), alpha*h0 + beta*h1))
@@ -33,6 +36,10 @@ def test_H():
 
     assert(np.allclose(H(H(zero)), zero))
     assert(np.allclose(H(H(one)), one))
+
+def test_H2():
+    # H2|00> = (|00> + |01> + |10> + |11>)/2
+    assert(np.allclose(H2(zz),(zz+zo+oz+oo)/2))
 
 def test_Z():
     assert(np.allclose(Z(Z(s)), s))
