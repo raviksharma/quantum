@@ -2,6 +2,8 @@ from math import e, pi, sqrt, cos, sin
 import numpy as np
 
 
+i_vector = np.identity(2)
+
 not_vector = np.array([[0, 1],
                        [1, 0]], dtype=np.complex)
 
@@ -10,6 +12,15 @@ y_vector = np.array([[0, -1j],
 
 h_vector = (1/sqrt(2)) * np.array([[1, 1],
                                    [1, -1]], dtype=np.complex)
+
+#  Identity gate
+def I(state):
+    """Applies the Identity gate.
+
+    state -- state of a single qubit
+    """
+    return i_vector @ state
+
 
 #  Pauli-X / NOT gate / Half turn
 def X(state):
@@ -26,14 +37,6 @@ def H(state):
     state -- state of a single qubit
     """
     return h_vector @ state
-
-#  Hadamard transform - Hadamard gate (H) applied in parallel on 2 qubits
-def H2(joint_state):
-    """Applies the Hadamard transform.
-
-    joint_state -- joint state of 2 qubits
-    """
-    return np.kron(h_vector, h_vector) @ joint_state
 
 #  Pauli-Y / Y gate / Half turn
 def Y(state):
@@ -155,6 +158,23 @@ def SWAP(joint_state):
                             [0, 1, 0, 0],
                             [0, 0, 0, 1]], dtype=np.complex)
     return swap_vector @ joint_state
+
+# Hadamard gate extended with Identity
+# K will leave the second qubit untouched and apply the Hadamard transform to the first qubit
+def K(joint_state):
+    """Applies the K / HI gate.
+
+    joint_state -- joint state of 2 qubits
+    """
+    return np.kron(h_vector, i_vector) @ joint_state
+
+#  Hadamard transform - Hadamard gate (H) applied in parallel on 2 qubits
+def H2(joint_state):
+    """Applies the Hadamard transform.
+
+    joint_state -- joint state of 2 qubits
+    """
+    return np.kron(h_vector, h_vector) @ joint_state
 
 # Toffoli / CCNOT gate
 def CCNOT(joint_state):
