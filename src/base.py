@@ -2,11 +2,11 @@ import numpy as np
 
 # computational basis state 0 - |0> (ket notation)
 zero = np.array([[1],
-                 [0]], dtype=np.complex)
+                 [0]], dtype=complex)
 
 # computational basis state 1 - |1>
 one = np.array([[0],
-                [1]], dtype=np.complex)
+                [1]], dtype=complex)
 
 # general state
 # |ψ> = α |0> + β |1>,
@@ -19,9 +19,9 @@ one = np.array([[0],
 
 # |00> / vector representation
 zz = np.array([[1],
-	       [0],
-	       [0],
-	       [0]], dtype=np.complex)
+               [0],
+               [0],
+               [0]], dtype=complex)
 
 # or
 zz = np.kron(zero, zero)

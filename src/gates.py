@@ -5,13 +5,13 @@ import numpy as np
 i_vector = np.identity(2)
 
 not_vector = np.array([[0, 1],
-                       [1, 0]], dtype=np.complex)
+                       [1, 0]], dtype=complex)
 
 y_vector = np.array([[0, -1j],
-                     [1j, 0]], dtype=np.complex)
+                     [1j, 0]], dtype=complex)
 
 h_vector = (1/sqrt(2)) * np.array([[1, 1],
-                                   [1, -1]], dtype=np.complex)
+                                   [1, -1]], dtype=complex)
 
 #  Identity gate
 def I(state):
@@ -53,7 +53,7 @@ def Z(state):
     state -- state of a single qubit
     """
     z_vector = np.array([[1, 0],
-                         [0, -1]], dtype=np.complex)
+                         [0, -1]], dtype=complex)
     return z_vector @ state
 
 #  Phase shift / RZ gate
@@ -63,7 +63,7 @@ def RZ(phi, state):
     state -- state of a single qubit
     """
     rz_vector = np.array([[1, 0],
-                          [0, e ** (phi * 1j)]], dtype=np.complex)
+                          [0, e ** (phi * 1j)]], dtype=complex)
     return rz_vector @ state
 
 #  S gate / sqrt(Z) / Quarter turn
@@ -92,7 +92,7 @@ def CNOT(joint_state):
     cnot_vector = np.array([[1, 0, 0, 0],
                             [0, 1, 0, 0],
                             [0, 0, 0, 1],
-                            [0, 0, 1, 0]], dtype=np.complex)
+                            [0, 0, 1, 0]], dtype=complex)
     return cnot_vector @ joint_state
 
 #  Controlled Phase shift / CPHASE gate
@@ -104,7 +104,7 @@ def CPHASE(phi, joint_state):
     cr_vector = np.array([[1, 0, 0, 0],
                           [0, 1, 0, 0],
                           [0, 0, 1, 0],
-                          [0, 0, 0, e ** (phi * 1j)]], dtype=np.complex)
+                          [0, 0, 0, e ** (phi * 1j)]], dtype=complex)
     return cr_vector @ joint_state
 
 
@@ -117,7 +117,7 @@ def CZ(joint_state):
     cz_vector = np.array([[1, 0, 0, 0],
                           [0, 1, 0, 0],
                           [0, 0, 1, 0],
-                          [0, 0, 0, -1]], dtype=np.complex)
+                          [0, 0, 0, -1]], dtype=complex)
     return cz_vector @ joint_state
 
 # Controlled U / CU gate
@@ -127,7 +127,7 @@ def CU(U, joint_state):
     U           -- Pauli matrices
     joint_state -- joint state of 2 qubits
     """
-    cu_vector = np.identity(4, dtype=np.complex)
+    cu_vector = np.identity(4, dtype=complex)
     cu_vector[2:4, 2:4] = U
     return cu_vector @ joint_state
 
@@ -156,7 +156,7 @@ def SWAP(joint_state):
     swap_vector = np.array([[1, 0, 0, 0],
                             [0, 0, 1, 0],
                             [0, 1, 0, 0],
-                            [0, 0, 0, 1]], dtype=np.complex)
+                            [0, 0, 0, 1]], dtype=complex)
     return swap_vector @ joint_state
 
 # Hadamard gate extended with Identity
@@ -189,7 +189,7 @@ def CCNOT(joint_state):
                              [0, 0, 0, 0, 1, 0, 0, 0],
                              [0, 0, 0, 0, 0, 1, 0, 0],
                              [0, 0, 0, 0, 0, 0, 0, 1],
-                             [0, 0, 0, 0, 0, 0, 1, 0]], dtype=np.complex)
+                             [0, 0, 0, 0, 0, 0, 1, 0]], dtype=complex)
     return ccnot_vector @ joint_state
 
 # Fredkin / CSWAP gate
@@ -205,7 +205,7 @@ def CSWAP(joint_state):
                              [0, 0, 0, 0, 1, 0, 0, 0],
                              [0, 0, 0, 0, 0, 0, 1, 0],
                              [0, 0, 0, 0, 0, 1, 0, 0],
-                             [0, 0, 0, 0, 0, 0, 0, 1]], dtype=np.complex)
+                             [0, 0, 0, 0, 0, 0, 0, 1]], dtype=complex)
     return cswap_vector @ joint_state
 
 # Universal quantum gates for single qubit
@@ -215,7 +215,7 @@ def U3(_theta, _phi, _lambda, state):
     state   -- state of a single qubit
     """
     u3_vector = np.array([[cos(_theta/2), -((e ** (_lambda * 1j) * (sin(_theta/2))))],
-                         [((e ** (_phi * 1j) * (sin(_theta/2)))), ((e ** ((_lambda * 1j) + (_phi * 1j)) * (cos(_theta/2))))]], dtype=np.complex)
+                         [((e ** (_phi * 1j) * (sin(_theta/2)))), ((e ** ((_lambda * 1j) + (_phi * 1j)) * (cos(_theta/2))))]], dtype=complex)
     return u3_vector @ state
 
 def U2(_phi, _lambda, state):

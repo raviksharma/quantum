@@ -20,7 +20,7 @@ def test_X():
     assert(np.array_equal(X(X(one)), one))
 
     assert(np.array_equal(X(s), np.array([[beta],
-                                          [alpha]], dtype=np.complex)))
+                                          [alpha]], dtype=complex)))
     assert(np.array_equal(X(X(s)), s))
 
 def test_H():
